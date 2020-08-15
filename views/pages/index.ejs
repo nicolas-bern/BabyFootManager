@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/semantic/semantic.min.css">
+    <title>BF Manager</title>
+</head> 
+<body>
+
+    <div class="ui fixed inverted menu">
+        <a href="/" class="header item">BabyFoot Manager</a>
+    </div>
+
+    <div class="ui main container">
+
+        <br>
+        <br>
+        <br>
+
+        <% if(locals.flash && locals.flash.error) { %>
+        <div class="ui negative message">
+            <%= flash.error %>
+        </div>
+        <% } %>
+
+        <br>
+        <br>
+        <br>
+
+        <form action="/" method="POST" class="ui grid">
+            <div class="field">
+                <label for="newgame"></label>
+                <textarea name="newgame" id="newgame" placeholder="Nouvelle partie" cols="30" rows="2"></textarea>
+            </div>
+        
+            <button type="submit" class="ui blue labeled submit icon button">
+                <i class="icon add"></i>Ajouter
+            </button>
+        </form>
+
+        <br>
+        <br>
+        <br>
+
+        <div class="ui comments">
+            <h3 class="ui dividing header">Parties :</h3>
+            
+            
+
+        </div>
+        
+    </div>
+    
+</body>
+</html>
