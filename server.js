@@ -30,9 +30,12 @@ app.get('/', (request, response) => {
     let Partie = require('./models/partie')
     
     Partie.getAllParties(function (parties){
+        console.log("Test")
         response.render('pages/index', {parties: parties})
     })
     
+
+    //response.render('pages/index', {parties: parties})
 })
 
 app.post('/', (request, response) => {

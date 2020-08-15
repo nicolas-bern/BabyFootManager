@@ -9,7 +9,7 @@ const client = new Client({
   port: 5432
 })
 
-  
+
 client.connect(err => {
   if (err) {
     console.log('not connected')

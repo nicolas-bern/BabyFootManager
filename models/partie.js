@@ -17,6 +17,7 @@ class Partie {
     }
 
     static getAllParties(){
+        
         client.query('SELECT * FROM parties', (err, res) => {
             if (err) {
               console.log(err.stack)
