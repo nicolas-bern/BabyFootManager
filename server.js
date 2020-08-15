@@ -26,22 +26,13 @@ app.use(require('./middlewares/flash'))
 
 // Routes
 app.get('/', (request, response) => {
-    /*
+    
     let Partie = require('./models/partie')
     
     Partie.getAllParties(function (parties){
         response.render('pages/index', {parties: parties})
     })
-    */
-
-   /* 
-   if(request.session.error){
-    response.locals.error = request.session.error
-    request.session.error = undefined
-    }
-    */
-    response.render('pages/index')
-
+    
 })
 
 app.post('/', (request, response) => {
