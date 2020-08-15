@@ -10,12 +10,6 @@ const client = new Client({
 })
 
 
-client.connect(err => {
-  if (err) {
-    console.log('not connected')
-  } else {
-      console.log('connected')
-  }
-})
+client.connect()
 
 module.exports = client

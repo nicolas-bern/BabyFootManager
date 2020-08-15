@@ -46,10 +46,10 @@
         <div class="ui comments">
             <h3 class="ui dividing header">Parties :</h3>
             
-            <% for (partie of parties) { %>
+            <% for (i=0; i<parties.length; i++) { %>
                 <div class="comment">
                     <div class="content">
-                        <div class="test"><%= partie.nom %></div>
+                        <div class="test"><%= parties[i] %></div>
                     </div>
                 </div>
             <% } %>

@@ -16,13 +16,13 @@ class Partie {
         })
     }
 
-    static getAllParties(){
+    static getAllParties(cb){
         
-        client.query('SELECT * FROM parties', (err, res) => {
+        let result = client.query('SELECT * FROM parties', (err, res) => {
             if (err) {
-              console.log(err.stack)
+              throw err
             } else {
-              console.log(res.rows[0])
+              cb(res)
             }
         })
     }
