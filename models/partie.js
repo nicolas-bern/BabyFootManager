@@ -19,10 +19,22 @@ class Partie {
     static getAllParties(cb){
         
         let result = client.query('SELECT * FROM parties', (err, res) => {
-            if (err) {
-              throw err
-            } else {
+            if (err){
+              console.log(err)
+            } else{
               cb(res)
+            }
+        })
+    }
+
+    static deletePartie(id){
+        const text = 'DELETE FROM parties WHERE id ='+id
+
+        client.query(text, (err, res) => {
+            if (err){
+                console.error(err)
+            } else{
+                console.log('Partie supprimée')
             }
         })
     }

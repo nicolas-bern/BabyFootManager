@@ -30,11 +30,13 @@ app.get('/', (request, response) => {
     let Partie = require('./models/partie')
     
     Partie.getAllParties(function (parties){
-        let results = []
+        let resultsNom = []
+        let resultsID = []
         for(i=0; i<parties.rowCount; i++){
-            results.push(parties.rows[i].nom)
+            resultsNom.push(parties.rows[i].nom)
+            resultsID.push(parties.rows[i].id)
         }
-        response.render('pages/index', {parties: results})
+        response.render('pages/index', {parties: resultsNom, id: resultsID})
     })
     
 })

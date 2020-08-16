@@ -45,13 +45,24 @@
 
         <div class="ui comments">
             <h3 class="ui dividing header">Parties :</h3>
-            
+            <br>
             <% for (i=0; i<parties.length; i++) { %>
-                <div class="comment">
-                    <div class="content">
-                        <div class="test"><%= parties[i] %></div>
-                    </div>
+                <div class="ui grid">
+
+                    <input type="checkbox"></input>
+
+                    <div class="test"><%= parties[i] %></div>
+
+                    <input type="hidden" name="id" id="id" value="<%= id[i] %>">
+                    <button type="submit" class="ui red delete button">
+                        <i class="icon delete"></i>
+                    </button>
+
                 </div>
+
+                <br>
+                <br>
+                <br>
             <% } %>
 
         </div>
