@@ -39,12 +39,12 @@
             </button>
         </form>
 
-        <br>
-        <br>
-        <br>
+        <div class="ui hidden divider"></div>
 
         <div class="ui comments">
             <h3 class="ui dividing header">Parties :</h3>
+            <br>
+            <h3 class="ui header">Parties en cours :</h3>
             <br>
             <% for (i=0; i<parties.length; i++) { %>
                 <div class="ui grid">
@@ -53,17 +53,23 @@
 
                     <div class="test"><%= parties[i] %></div>
 
-                    <input type="hidden" name="id" id="id" value="<%= id[i] %>">
-                    <button type="submit" class="ui red delete button">
+                    <form action="/" method="post">
+                        <input type="hidden" name="id" id="id" value="<%= id[i] %>">
+                        <button type="submit" class="ui red delete button" name="id" id="id">
                         <i class="icon delete"></i>
-                    </button>
-
+                        </button>
+                    </form>
                 </div>
 
-                <br>
-                <br>
+                <div class="ui hidden divider"></div>
                 <br>
             <% } %>
+
+            <div class="ui section divider"></div>
+
+            <h3 class="ui header">Parties terminées :</h3>
+
+            
 
         </div>
         

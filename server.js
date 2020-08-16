@@ -43,9 +43,18 @@ app.get('/', (request, response) => {
 
 app.post('/', (request, response) => {
     if(request.body.newgame === undefined || request.body.newgame === ''){
-        request.flash('error', "Veuillez entrer un nom de partie")
-        response.redirect('/')
-    } else{
+        if(request.body.id != undefined){
+            let id = request.body.id[0]
+            let Partie = require('./models/partie')
+            Partie.deletePartie(id)
+            response.redirect('/')
+        } else {
+            request.flash('error', "Veuillez entrer un nom de partie")
+            response.redirect('/')
+        }
+    } 
+    
+    else if(request.body.id == undefined && request.body.newgame != undefined || request.body.newgame != ''){
         let Partie = require('./models/partie')
         Partie.create(request.body.newgame)
         response.redirect('/')
