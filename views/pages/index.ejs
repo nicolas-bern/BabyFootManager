@@ -49,11 +49,14 @@
             <% for (i=0; i<parties.length; i++) { %>
                 <div class="ui grid">
 
-                    <input type="checkbox"></input>
+                    <form action="/" method="POST" class="checkbox">
+                        <input type="hidden" name="idcheck" id="idcheck">
+                        <input type="checkbox" class="checks" value="OK"></input>
+                    </form>
 
                     <div class="test"><%= parties[i] %></div>
 
-                    <form action="/" method="post">
+                    <form action="/" method="POST" class="delete">
                         <input type="hidden" name="id" id="id" value="<%= id[i] %>">
                         <button type="submit" class="ui red delete button" name="id" id="id">
                         <i class="icon delete"></i>
@@ -69,7 +72,7 @@
 
             <h3 class="ui header">Parties terminées :</h3>
 
-            
+
 
         </div>
         

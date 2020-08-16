@@ -18,7 +18,7 @@ class Partie {
 
     static getAllParties(cb){
         
-        let result = client.query('SELECT * FROM parties', (err, res) => {
+        let result = client.query('SELECT * FROM parties WHERE statut = true', (err, res) => {
             if (err){
               console.log(err)
             } else{

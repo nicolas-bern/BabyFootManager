@@ -51,8 +51,9 @@ app.post('/', (request, response) => {
         } else {
             request.flash('error', "Veuillez entrer un nom de partie")
             response.redirect('/')
+            console.log(request.body.idcheck)
         }
-    } 
+    }
     
     else if(request.body.id == undefined && request.body.newgame != undefined || request.body.newgame != ''){
         let Partie = require('./models/partie')
