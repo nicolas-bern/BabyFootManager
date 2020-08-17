@@ -69,7 +69,6 @@ app.post('/', (request, response) => {
         Partie.create(request.body.newgame)
         response.redirect('/')
     }
-    //console.log(request.body)
 })
 
 
