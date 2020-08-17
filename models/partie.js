@@ -18,7 +18,7 @@ class Partie {
 
     static getAllParties(cb){
         
-        let result = client.query('SELECT * FROM parties WHERE statut = true', (err, res) => {
+        let result = client.query('SELECT * FROM parties', (err, res) => {
             if (err){
               console.log(err)
             } else{
@@ -35,6 +35,19 @@ class Partie {
                 console.error(err)
             } else{
                 console.log('Partie supprimée')
+            }
+        })
+    }
+
+    static partieOver(id){
+
+        const text = 'UPDATE parties SET statut = false WHERE id ='+id
+
+        client.query(text, (err, res) => {
+            if (err){
+                console.error(err)
+            } else{
+                console.log('Partie terminée')
             }
         })
     }

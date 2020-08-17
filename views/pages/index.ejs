@@ -49,19 +49,22 @@
             <% for (i=0; i<parties.length; i++) { %>
                 <div class="ui grid">
 
-                    <form action="/" method="POST" class="checkbox">
-                        <input type="hidden" name="idcheck" id="idcheck">
-                        <input type="checkbox" class="checks" value="OK"></input>
-                    </form>
-
                     <div class="test"><%= parties[i] %></div>
 
                     <form action="/" method="POST" class="delete">
-                        <input type="hidden" name="id" id="id" value="<%= id[i] %>">
-                        <button type="submit" class="ui red delete button" name="id" id="id">
-                        <i class="icon delete"></i>
+                        <input type="hidden" name="idDelete" id="idDelete" value="<%= id[i] %>">
+                        <button type="submit" class="ui red delete button" name="idDelete" id="idDelete">
+                        <i class="icon delete"></i>Supprimer
                         </button>
                     </form>
+
+                    <form action="/" method="POST" class="update">
+                        <input type="hidden" name="idUpdate" id="idUpdate" value="<%= id[i] %>">
+                        <button type="submit" class="ui blue labeled icon button" name="idUpdate" id="idUpdate">
+                            <i class="down arrow icon"></i>Terminé
+                        </button>
+                    </form>
+                    
                 </div>
 
                 <div class="ui hidden divider"></div>
@@ -71,9 +74,14 @@
             <div class="ui section divider"></div>
 
             <h3 class="ui header">Parties terminées :</h3>
+            <br>
+            <% for (i=0; i<partiesT.length; i++) { %>
+                <div class="ui grid">
 
-
-
+                    <div class="test"><%= partiesT[i] %></div>
+                    <div class="ui hidden divider"></div>
+                </div>
+            <% } %>
         </div>
         
     </div>

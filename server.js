@@ -31,27 +31,36 @@ app.get('/', (request, response) => {
     
     Partie.getAllParties(function (parties){
         let resultsNom = []
+        let resultsNomT = []
         let resultsID = []
         for(i=0; i<parties.rowCount; i++){
-            resultsNom.push(parties.rows[i].nom)
-            resultsID.push(parties.rows[i].id)
+            if(parties.rows[i].statut == false){
+                resultsNomT.push(parties.rows[i].nom)
+            } else{
+                resultsNom.push(parties.rows[i].nom)
+                resultsID.push(parties.rows[i].id)
+            }
         }
-        response.render('pages/index', {parties: resultsNom, id: resultsID})
+        response.render('pages/index', {parties: resultsNom, id: resultsID, partiesT : resultsNomT})
     })
     
 })
 
 app.post('/', (request, response) => {
     if(request.body.newgame === undefined || request.body.newgame === ''){
-        if(request.body.id != undefined){
-            let id = request.body.id[0]
+        if(request.body.idDelete != undefined){
+            let id = request.body.idDelete[0]
             let Partie = require('./models/partie')
             Partie.deletePartie(id)
+            response.redirect('/')
+        } else if(request.body.idUpdate != undefined){
+            let id = request.body.idUpdate[0]
+            let Partie = require('./models/partie')
+            Partie.partieOver(id)
             response.redirect('/')
         } else {
             request.flash('error', "Veuillez entrer un nom de partie")
             response.redirect('/')
-            console.log(request.body.idcheck)
         }
     }
     
