@@ -4,6 +4,9 @@ let app = express()
 let bodyparser = require('body-parser')
 const bodyParser = require('body-parser')
 let session = require('express-session')
+const { Console } = require('console')
+var http = require('http').Server(app)
+var io = require('socket.io')(http)
 
 
 // Moteur de template
@@ -28,7 +31,7 @@ app.use(require('./middlewares/flash'))
 app.get('/', (request, response) => {
     
     let Partie = require('./models/partie')
-    
+
     Partie.getAllParties(function (parties){
         let resultsNom = []
         let resultsNomT = []
@@ -43,7 +46,6 @@ app.get('/', (request, response) => {
         }
         response.render('pages/index', {parties: resultsNom, id: resultsID, partiesT : resultsNomT})
     })
-    
 })
 
 app.post('/', (request, response) => {
@@ -63,14 +65,40 @@ app.post('/', (request, response) => {
             response.redirect('/')
         }
     }
-    
-    else if(request.body.id == undefined && request.body.newgame != undefined || request.body.newgame != ''){
+})
+
+
+// Socket.io
+io.on('connection', function(socket){
+    console.log('A user is connected')
+    socket.on('disconnect', function(){
+        console.log('A user is disctonnected')
+    })
+
+    socket.on('newgame', function(partie){
         let Partie = require('./models/partie')
-        Partie.create(request.body.newgame)
-        response.redirect('/')
-    }
+        if(partie == ''){
+            
+        } else{
+            Partie.create(partie)
+            console.log('Partie : ' + partie)
+        }
+        io.emit('newgame', partie)
+    })
+
+
+    socket.on('delete', function(id){
+
+    })
+
+    
+    socket.on('over', function(id){
+        
+    })
 })
 
 
 // Port d'écoute
-app.listen(80)
+http.listen(80, function(){
+    console.log("Server running on 80")
+})

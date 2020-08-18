@@ -18,7 +18,7 @@ class Partie {
 
     static getAllParties(cb){
         
-        let result = client.query('SELECT * FROM parties', (err, res) => {
+        let result = client.query('SELECT * FROM parties ORDER BY date_creation', (err, res) => {
             if (err){
               console.log(err)
             } else{

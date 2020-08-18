@@ -8,6 +8,30 @@
 </head> 
 <body>
 
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+        var socket = io()
+
+        var send = function(){
+            var text = document.getElementById('newgame').value
+            socket.emit('newgame', text)
+        }
+
+        
+
+        var receive = function(partie){
+            var game = document.createElement('p')
+            game.innerText = partie
+            document.getElementById('test').appendChild(game)
+        }
+
+        socket.on('newgame', function(partie){
+            receive(partie)
+        })
+
+    </script>
+
     <div class="ui fixed inverted menu">
         <a href="/" class="header item">BabyFoot Manager</a>
     </div>
@@ -28,28 +52,37 @@
         <br>
         <br>
 
-        <form action="/" method="POST" class="ui grid">
+        <div class="ui grid">
             <div class="field">
                 <label for="newgame"></label>
                 <textarea name="newgame" id="newgame" placeholder="Nouvelle partie" cols="30" rows="2"></textarea>
             </div>
         
-            <button type="submit" class="ui blue labeled submit icon button">
+            <button type="submit" class="ui blue labeled submit icon button" onclick="send()">
                 <i class="icon add"></i>Ajouter
             </button>
-        </form>
+        </div>
+            
 
         <div class="ui hidden divider"></div>
 
         <div class="ui comments">
             <h3 class="ui dividing header">Parties :</h3>
             <br>
-            <h3 class="ui header">Parties en cours :</h3>
+            <h3 class="ui header">Parties en cours (<%= parties.length %>) :</h3>
             <br>
+
             <% for (i=0; i<parties.length; i++) { %>
                 <div class="ui grid">
 
-                    <div class="test"><%= parties[i] %></div>
+                    <p id="test"><%= parties[i] %></p>
+
+                    <form action="/" method="POST" class="update">
+                        <input type="hidden" name="idUpdate" id="idUpdate" value="<%= id[i] %>">
+                        <button type="submit" class="ui blue labeled icon button" name="idUpdate" id="idUpdate">
+                            <i class="down arrow icon"></i>Terminé
+                        </button>
+                    </form>
 
                     <form action="/" method="POST" class="delete">
                         <input type="hidden" name="idDelete" id="idDelete" value="<%= id[i] %>">
@@ -58,13 +91,6 @@
                         </button>
                     </form>
 
-                    <form action="/" method="POST" class="update">
-                        <input type="hidden" name="idUpdate" id="idUpdate" value="<%= id[i] %>">
-                        <button type="submit" class="ui blue labeled icon button" name="idUpdate" id="idUpdate">
-                            <i class="down arrow icon"></i>Terminé
-                        </button>
-                    </form>
-                    
                 </div>
 
                 <div class="ui hidden divider"></div>
@@ -73,12 +99,12 @@
 
             <div class="ui section divider"></div>
 
-            <h3 class="ui header">Parties terminées :</h3>
+            <h3 class="ui header">Parties terminées (<%= partiesT.length %>) :</h3>
             <br>
             <% for (i=0; i<partiesT.length; i++) { %>
                 <div class="ui grid">
 
-                    <div class="test"><%= partiesT[i] %></div>
+                    <div class="test" style="color: grey;"><%= partiesT[i] %></div>
                     <div class="ui hidden divider"></div>
                 </div>
             <% } %>
