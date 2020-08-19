@@ -51,17 +51,19 @@ app.get('/', (request, response) => {
 app.post('/', (request, response) => {
     if(request.body.newgame === undefined || request.body.newgame === ''){
         if(request.body.idDelete != undefined){
-            
+            /*
             let id = request.body.idDelete[0]
             let Partie = require('./models/partie')
             Partie.deletePartie(id)
             response.redirect('/')
-            
+            */
         } else if(request.body.idUpdate != undefined){
+            /*
             let id = request.body.idUpdate[0]
             let Partie = require('./models/partie')
             Partie.partieOver(id)
             response.redirect('/')
+            */
         } else {
             
         }
@@ -74,8 +76,6 @@ io.on('connection', function(socket){
 
     socket.on('newgame', function(partie){
         let Partie = require('./models/partie')
-
-        let result
         if(partie == ''){
             
         } else{
@@ -89,12 +89,15 @@ io.on('connection', function(socket){
         console.log(id)
         let Partie = require('./models/partie')
         Partie.deletePartie(id)
-        io.emit('delete')
+        io.emit('delete', id)
     })
 
     
     socket.on('over', function(id){
-        
+        console.log("ID : " + id)
+        let Partie = require('./models/partie')
+        Partie.partieOver(id)
+        io.emit('over', id)
     })
 })
 

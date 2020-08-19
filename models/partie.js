@@ -18,7 +18,7 @@ class Partie {
 
     static getAllParties(cb){
         
-        let result = client.query('SELECT * FROM parties ORDER BY date_creation', (err, res) => {
+        client.query('SELECT * FROM parties ORDER BY date_creation', (err, res) => {
             if (err){
               console.log(err)
             } else{
@@ -58,7 +58,7 @@ class Partie {
             if (err){
                 console.error(err)
             } else{
-                //console.log(res)
+                console.log(res)
                 return res
             }
         })
