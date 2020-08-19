@@ -18,7 +18,7 @@ class Partie {
 
     static getAllParties(cb){
         
-        client.query('SELECT * FROM parties ORDER BY date_creation', (err, res) => {
+        client.query('SELECT * FROM parties ORDER BY id', (err, res) => {
             if (err){
               console.log(err)
             } else{
@@ -52,14 +52,12 @@ class Partie {
         })
     }
 
-    static getIdPartie(){
-        const text = "SELECT id FROM parties ORDER BY id DESC limit 1"
-        client.query(text, (err, res) => {
+    static getIdPartie(cb){
+        client.query("SELECT id FROM parties ORDER BY id DESC limit 1", (err, res) => {
             if (err){
                 console.error(err)
             } else{
-                console.log(res)
-                return res
+                cb(res.rows[0].id)
             }
         })
     }

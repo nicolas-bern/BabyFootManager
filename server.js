@@ -76,12 +76,21 @@ io.on('connection', function(socket){
 
     socket.on('newgame', function(partie){
         let Partie = require('./models/partie')
+        let id
+        let partie_nom
         if(partie == ''){
             
         } else{
             Partie.create(partie)
+            Partie.getIdPartie(function (id) {
+                id = id
+                partie_nom = partie
+            })
+            io.emit('newgame', {
+                id: id,
+                partie: partie_nom
+            })
         }
-        io.emit('newgame', partie)
     })
 
 

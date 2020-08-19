@@ -25,41 +25,80 @@
 
         var finishPartie = function(self){
             var id = self.getAttribute("partie-id")
-            var partie = document.getElementById('nom_partie').textContent
-            console.log(partie)
-            console.log(id)
+            var partie = document.getElementById(id).textContent
             socket.emit('over', id)
         }
 
-        var receive = function(partie){
+        var newGame = function(id, partie){
+            console.log('ID function' + id)
+            console.log('Partie function : ' + partie)
 
-            
+            var game = document.createElement('p')
+            var div = document.createElement('div')
+            var buttonF = document.createElement('button')
+            var iF = document.createElement('i')
+            var buttonD = document.createElement('button')
+            var iD = document.createElement('i')
+
+            div.setAttribute('class', 'ui grid')
+            div.setAttribute('id', 'partie')
+            div.setAttribute('name', id)
+
+            game.setAttribute('id', id)
+            game.innerText = partie
+
+            buttonF.setAttribute('type', 'submit')
+            buttonF.setAttribute('class', 'ui blue labeled icon button')
+            buttonF.setAttribute('id', 'idUpdate')
+            buttonF.setAttribute('onclick', 'finishPartie(this)')
+            buttonF.setAttribute('partie-id', id)
+
+            iF.setAttribute('class', 'down arrow icon')
+
+            buttonD.setAttribute('type', 'submit')
+            buttonD.setAttribute('class', 'ui red delete button')
+            buttonD.setAttribute('id', 'idDelete')
+            buttonD.setAttribute('onclick', 'deletePartie(this)')
+            buttonD.setAttribute('partie-id', id)
+
+            iD.setAttribute('class', 'icon delete')
+
+            document.getElementById('partieEnCours').appendChild(div)
+            document.getElementById('partie').appendChild(game)
+            document.getElementById('partie').appendChild(buttonF)
+            document.getElementById('idUpdate').appendChild(iF)
+            document.getElementById('partie').appendChild(buttonD)
+            document.getElementById('idDelete').appendChild(iD)
         }
 
-        socket.on('newgame', function(partie){
-            var game = document.createElement('p')
-            game.innerText = partie
-            document.getElementById('partieEnCours').appendChild(game)
+
+        socket.on('newgame', function(id, partie_nom){
+            console.log('ID socket' + id)
+            console.log('Partie socket : ' + partie_nom)
+            newGame(id, partie_nom)
         })
 
         socket.on('delete', function(id){
-            var parent = document.getElementById("partieEnCours")
-            var child = document.getElementsByName(id)
-            console.log("Parent : " + parent)
-            console.log("Child : " + child)
-            var removed = parent.removeChild(id)
+            var suppr = document.getElementById('partie ' + id)
+            suppr.remove()
         })
 
         socket.on('over', function(id){
-            var partie = document.getElementById('nom_partie').textContent
+            var partie = document.getElementById(id).textContent
             var add = document.createElement('p')
             var div = document.createElement('div')
+            var suppr = document.getElementById('partie ' + id)
+
             add.setAttribute('class', 'testT')
             add.setAttribute('style', 'color: grey;')
-            div.setAttribute('class', 'ui hidden divider')
             add.innerText = partie
+
+            div.setAttribute('class', 'ui hidden divider')
+
             document.getElementById('partieFini').appendChild(add)
             document.getElementById('partieFini').appendChild(div)
+
+            suppr.remove()
         })
 
     </script>
@@ -102,22 +141,22 @@
 
             <div id="partieEnCours">
                 <% for (i=0; i<parties.length; i++) { %>
-                    <div class="ui grid" id="partie" name="<%= id[i] %>">
+                    <div id="test">
+                        <div class="ui grid" id="partie <%= id[i] %>" name="<%= id[i] %>">
     
-                        <p id="nom_partie" name="<%= id[i] %>"><%= parties[i] %></p>
-    
-                        <button type="submit" class="ui blue labeled icon button" name="<%= id[i] %>" id="idUpdate" onclick="finishPartie(this)" partie-id="<%= id[i] %>">
-                            <i class="down arrow icon"></i>Terminé
-                        </button>
-                        
-                        <button type="submit" class="ui red delete button" name="<%= id[i] %>" id="idDelete" onclick="deletePartie(this)" partie-id="<%= id[i] %>">
-                            <i class="icon delete"></i>Supprimer
-                        </button>
-                        
+                            <p id="<%= id[i] %>"><%= parties[i] %></p>
+        
+                            <button type="submit" class="ui blue labeled icon button" id="idUpdate" onclick="finishPartie(this)" partie-id="<%= id[i] %>">
+                                <i class="down arrow icon"></i>Terminé
+                            </button>
                             
-                        
-    
+                            <button type="submit" class="ui red delete button" id="idDelete" onclick="deletePartie(this)" partie-id="<%= id[i] %>">
+                                <i class="icon delete"></i>Supprimer
+                            </button>
+                            
+                        </div>
                     </div>
+                    
     
                     <div class="ui hidden divider"></div>
                     <br>
