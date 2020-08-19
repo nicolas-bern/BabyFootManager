@@ -51,6 +51,18 @@ class Partie {
             }
         })
     }
+
+    static getIdPartie(){
+        const text = "SELECT id FROM parties ORDER BY id DESC limit 1"
+        client.query(text, (err, res) => {
+            if (err){
+                console.error(err)
+            } else{
+                //console.log(res)
+                return res
+            }
+        })
+    }
 }
 
 module.exports = Partie
