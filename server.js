@@ -23,7 +23,6 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: false }
   }))
-app.use(require('./middlewares/flash'))
 
 
 
@@ -46,28 +45,6 @@ app.get('/', (request, response) => {
         }
         response.render('pages/index', {parties: resultsNom, id: resultsID, partiesT : resultsNomT})
     })
-})
-
-app.post('/', (request, response) => {
-    if(request.body.newgame === undefined || request.body.newgame === ''){
-        if(request.body.idDelete != undefined){
-            /*
-            let id = request.body.idDelete[0]
-            let Partie = require('./models/partie')
-            Partie.deletePartie(id)
-            response.redirect('/')
-            */
-        } else if(request.body.idUpdate != undefined){
-            /*
-            let id = request.body.idUpdate[0]
-            let Partie = require('./models/partie')
-            Partie.partieOver(id)
-            response.redirect('/')
-            */
-        } else {
-            
-        }
-    }
 })
 
 
