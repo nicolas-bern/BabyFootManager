@@ -1,4 +1,4 @@
-# BabyFootManager
+# BabyFootManager (Test technique)
 
 
 BabyFoot Manager permet de créer des parties de babyfoot en temps réel ainsi que de les supprimer ou de les marquer comme terminées.
@@ -7,7 +7,7 @@ BabyFoot Manager permet de créer des parties de babyfoot en temps réel ainsi q
 ## Pour commencer :
 
 Installation de node.js puis de npm ``npm install npm -g``.
-Lancez le fichier script.sql pour créer les base de données.
+Lancez le fichier script.sql pour créer les base de données postgresql.
 
 
 ## Démarrage :
